@@ -106,13 +106,13 @@
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
-		</dependency>
+		</dependency> 
 
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-pool2 -->
-		<dependency>
+		 <dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-pool2</artifactId>
-		</dependency>
+		</dependency> 
 
 	</dependencies>
 	
