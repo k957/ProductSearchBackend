@@ -41,6 +41,10 @@ public class Product {
 	@JoinColumn(name = "brand_id")
 	private Brand brand;
 	
+	@ManyToOne
+	@JoinColumn(name="category_id")
+	private Category category;
+	
 	public Long getId() {
 		return id;
 	}
@@ -118,9 +122,17 @@ public class Product {
 	public void setBrand(Brand brand) {
 		this.brand = brand;
 	}
+	@JsonIgnore
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 
 	public Product(Long id, Merchant merchant, List<Feed> feeds, String name, String description, String color,
-			String size, Date createdAt, Brand brand) {
+			String size, Date createdAt, Brand brand, Category category) {
 		super();
 		this.id = id;
 		this.merchant = merchant;
@@ -131,14 +143,17 @@ public class Product {
 		this.size = size;
 		this.createdAt = createdAt;
 		this.brand = brand;
+		this.category = category;
 	}
 
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", merchant=" + merchant + ", feeds=" + feeds + ", name=" + name + ", description="
 				+ description + ", color=" + color + ", size=" + size + ", createdAt=" + createdAt + ", brand=" + brand
-				+ "]";
+				+ ", category=" + category + "]";
 	}
+
+	
 
 	
 }

@@ -1,4 +1,4 @@
-package com.rest.controller;
+/*package com.rest.controller;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,8 +8,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.LocalSearchDirectoryApplication;
 
-/*@RunWith(SpringRunner.class)
-@SpringBootTest*/
+@RunWith(SpringRunner.class)
+@SpringBootTest
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = {LocalSearchDirectoryApplication.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class LocalSearchDirectoryApplicationTests {
@@ -22,3 +22,4 @@ public class LocalSearchDirectoryApplicationTests {
 		assert(true);
 	}
 }
+*/
