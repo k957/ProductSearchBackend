@@ -110,5 +110,35 @@ public class Product {
 		super();
 
 	}
+	@JsonIgnore
+	public Brand getBrand() {
+		return brand;
+	}
 
+	public void setBrand(Brand brand) {
+		this.brand = brand;
+	}
+
+	public Product(Long id, Merchant merchant, List<Feed> feeds, String name, String description, String color,
+			String size, Date createdAt, Brand brand) {
+		super();
+		this.id = id;
+		this.merchant = merchant;
+		this.feeds = feeds;
+		this.name = name;
+		this.description = description;
+		this.color = color;
+		this.size = size;
+		this.createdAt = createdAt;
+		this.brand = brand;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", merchant=" + merchant + ", feeds=" + feeds + ", name=" + name + ", description="
+				+ description + ", color=" + color + ", size=" + size + ", createdAt=" + createdAt + ", brand=" + brand
+				+ "]";
+	}
+
+	
 }

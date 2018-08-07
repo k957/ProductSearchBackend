@@ -7,14 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.dto.ProductDto;
+import com.example.model.Brand;
 import com.example.model.Merchant;
 import com.example.model.Product;
+import com.example.repository.IBrandRepository;
 import com.example.repository.IMerchantRepository;
 
 @Component
 public class ProductAssembler {
 	@Autowired
 	private IMerchantRepository merchantRepository;
+	
+	@Autowired 
+	private IBrandRepository brandRepository;
 	
 	public List<Product> createProductEntity(List<ProductDto> productDtoList) {
 		
@@ -23,6 +28,8 @@ public class ProductAssembler {
 			Product product = new Product();
 			Merchant merchant = merchantRepository.getOne(productDto.getMerchantId());
 			product.setMerchant(merchant);
+			Brand brand = brandRepository.getOne(productDto.getBrandId());
+			product.setBrand(brand);
 			product.setName(productDto.getName());
 			product.setColor(productDto.getColor());
 			product.setSize(productDto.getSize());
@@ -38,6 +45,8 @@ public class ProductAssembler {
 		Product product = new Product();
 		Merchant merchant = merchantRepository.getOne(productDto.getMerchantId());
 		product.setMerchant(merchant);
+		Brand brand = brandRepository.getOne(productDto.getBrandId());
+		product.setBrand(brand);
 		product.setName(productDto.getName());
 		product.setColor(productDto.getColor());
 		product.setSize(productDto.getSize());

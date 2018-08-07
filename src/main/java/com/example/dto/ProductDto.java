@@ -16,6 +16,9 @@ public class ProductDto {
 
 	private String color = null;
 	private String size = null;
+	
+	@NotNull(message="brand id cannot be null")
+	private Long brandId;
 
 	public Long getMerchantId() {
 		return merchantId;
@@ -65,4 +68,13 @@ public class ProductDto {
 		this.size = size;
 	}
 
+	public Long getBrandId() {
+		return brandId;
+	}
+
+	public void setBrandId(Long brandId) {
+		this.brandId = brandId;
+	}
+	
+	
 }

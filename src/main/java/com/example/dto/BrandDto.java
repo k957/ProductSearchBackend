@@ -2,8 +2,10 @@ package com.example.dto;
 
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 public class BrandDto {
-	
+	@NotNull(message="brand name cannot be null")
 	private String name;
 	private String description;
 	private List<ProductDto> productDto;
