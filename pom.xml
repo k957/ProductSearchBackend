@@ -116,19 +116,6 @@
 
 	</dependencies>
 	
-	<distributionManagement>
-		<repository>
-			<id>deployment</id>
-			<name>Internal Release</name>
-			<url>http://52.87.246.206:8080/repository/prod_ps/</url>
-		</repository>
-
-		<snapshotRepository>
-			<id>deployment</id>
-			<name>Internal Release</name>
-			<url>http://52.87.246.206:8080/repository/prod_ps_snap/</url>
-		</snapshotRepository>
-	</distributionManagement>
 	
 	<build>
 		<plugins>
@@ -157,5 +144,21 @@
 		</snapshots> </pluginRepository> <pluginRepository> <id>spring-milestones</id> 
 		<name>Spring Milestones</name> <url>https://repo.spring.io/milestone</url> 
 		<snapshots> <enabled>false</enabled> </snapshots> </pluginRepository> </pluginRepositories> -->
+		
+		
+		<distributionManagement>
+		<repository>
+			<id>deployment</id>
+			<name>Internal Release</name>
+			<url>http://52.87.246.206:8080/repository/prod_ps/</url>
+		</repository>
+
+		<snapshotRepository>
+			<id>deployment</id>
+			<name>Internal Release</name>
+			<url>http://52.87.246.206:8080/repository/prod_ps_snap/</url>
+		</snapshotRepository>
+	</distributionManagement>
+	
 
 </project>
