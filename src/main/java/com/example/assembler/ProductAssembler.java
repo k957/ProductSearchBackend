@@ -34,7 +34,8 @@ public class ProductAssembler {
 			product.setColor(productDto.getColor());
 			product.setSize(productDto.getSize());
 			product.setDescription(productDto.getDescription());
-
+			product.setImageUrl(productDto.getImageUrl());
+			product.setRank(productDto.getRank());
 			productList.add(product);
 		});
 
@@ -51,6 +52,8 @@ public class ProductAssembler {
 		product.setColor(productDto.getColor());
 		product.setSize(productDto.getSize());
 		product.setDescription(productDto.getDescription());
+		product.setImageUrl(productDto.getImageUrl());
+		product.setRank(productDto.getRank());
 		return product;
 	}
 }

@@ -1,5 +1,6 @@
 package com.example.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.assembler.ProductAssembler;
 import com.example.dto.ProductDto;
 import com.example.exception.ResourceNotFoundException;
+import com.example.model.Brand;
 import com.example.model.Product;
 import com.example.repository.IProductRepository;
 
@@ -18,6 +20,8 @@ public class ProductServiceImpl implements IProductService {
 
 	@Autowired
 	private IProductRepository productRepository;
+	
+	
 
 	@Override
 	public List<Product> viewAll() {
@@ -33,8 +37,17 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	@Override
-	public Product update(ProductDto productDto) {
-
+	public Product update(ProductDto productDto,Long id) {
+		Product product = productRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Product", "product ID", id));
+		product.setCreatedAt(new Date());
+		product.setName(productDto.getName());
+		product.setDescription(productDto.getDescription());
+		product.setColor(productDto.getColor());
+		product.setSize(productDto.getSize());
+		Brand brand = brandRepository.getOne(productDto.getBrandId());
+		product.setBrand(brand);
+		productRepository.save(product);
 		return null;
 	}
 

@@ -1,4 +1,4 @@
-/*package com.example.controller;
+package com.example.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,4 +55,3 @@ public class LogoutController {
 		return map;
 	}
 }
-*/

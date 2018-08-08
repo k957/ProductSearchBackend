@@ -22,6 +22,10 @@ public class ProductDto {
 	
 	
 	private Long categoryId=null;
+	
+	private String imageUrl=null;
+	
+	private int rank;
 
 	public Long getMerchantId() {
 		return merchantId;
@@ -85,6 +89,22 @@ public class ProductDto {
 
 	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public int getRank() {
+		return rank;
+	}
+
+	public void setRank(int rank) {
+		this.rank = rank;
 	}
 	
 	

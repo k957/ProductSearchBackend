@@ -45,7 +45,8 @@ public class Product {
 	@JoinColumn(name="category_id")
 	private Category category;
 	
-	
+	private String imageUrl;
+	private int rank;
 	
 	public Long getId() {
 		return id;
@@ -133,8 +134,24 @@ public class Product {
 		this.category = category;
 	}
 
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public int getRank() {
+		return rank;
+	}
+
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+
 	public Product(Long id, Merchant merchant, List<Feed> feeds, String name, String description, String color,
-			String size, Date createdAt, Brand brand, Category category) {
+			String size, Date createdAt, Brand brand, Category category, String imageUrl, int rank) {
 		super();
 		this.id = id;
 		this.merchant = merchant;
@@ -146,14 +163,18 @@ public class Product {
 		this.createdAt = createdAt;
 		this.brand = brand;
 		this.category = category;
+		this.imageUrl = imageUrl;
+		this.rank = rank;
 	}
 
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", merchant=" + merchant + ", feeds=" + feeds + ", name=" + name + ", description="
 				+ description + ", color=" + color + ", size=" + size + ", createdAt=" + createdAt + ", brand=" + brand
-				+ ", category=" + category + "]";
+				+ ", category=" + category + ", imageUrl=" + imageUrl + ", rank=" + rank + "]";
 	}
+
+	
 
 	
 

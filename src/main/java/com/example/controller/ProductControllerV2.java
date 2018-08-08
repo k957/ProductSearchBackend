@@ -95,16 +95,7 @@ public class ProductControllerV2 {
 	@PutMapping("/productId/{id}")
 	@ApiOperation(value="Updates Product whose ID is provided in the URL",response=ProductDto.class)
 	public ResponseEntity<?> update(@PathVariable(value = "id") Long id, @Valid @RequestBody ProductDto productDto) {
-			Product product = productRepository.findById(id)
-					.orElseThrow(() -> new ResourceNotFoundException("Product", "product ID", id));
-			product.setCreatedAt(new Date());
-			product.setName(productDto.getName());
-			product.setDescription(productDto.getDescription());
-			product.setColor(productDto.getColor());
-			product.setSize(productDto.getSize());
-			Brand brand = brandRepository.getOne(productDto.getBrandId());
-			product.setBrand(brand);
-			productRepository.save(product);
+			Product product = productservice.update(productDto, id);
 			HttpHeaders responseHeader = new HttpHeaders();
 			return new ResponseEntity<>(product, responseHeader, HttpStatus.OK);
 		}

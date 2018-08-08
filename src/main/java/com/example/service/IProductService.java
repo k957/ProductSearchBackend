@@ -11,7 +11,7 @@ public interface IProductService {
 
 	Product viewOne(Long id);
 
-	Product update(ProductDto productDto);
+	Product update(ProductDto productDto,Long id);
 
 	void delete(List<Product> productList);
 
