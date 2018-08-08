@@ -8,9 +8,11 @@ import org.springframework.stereotype.Component;
 
 import com.example.dto.ProductDto;
 import com.example.model.Brand;
+import com.example.model.Category;
 import com.example.model.Merchant;
 import com.example.model.Product;
 import com.example.repository.IBrandRepository;
+import com.example.repository.ICategoryRepository;
 import com.example.repository.IMerchantRepository;
 
 @Component
@@ -21,6 +23,9 @@ public class ProductAssembler {
 	@Autowired 
 	private IBrandRepository brandRepository;
 	
+	@Autowired
+	private ICategoryRepository categoryRepository;
+	
 	public List<Product> createProductEntity(List<ProductDto> productDtoList) {
 		
 		List<Product> productList = new ArrayList<>();
@@ -30,6 +35,8 @@ public class ProductAssembler {
 			product.setMerchant(merchant);
 			Brand brand = brandRepository.getOne(productDto.getBrandId());
 			product.setBrand(brand);
+			Category category = categoryRepository.getOne(productDto.getCategoryId());
+			product.setCategory(category);
 			product.setName(productDto.getName());
 			product.setColor(productDto.getColor());
 			product.setSize(productDto.getSize());

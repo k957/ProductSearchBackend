@@ -21,8 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.dto.ProductDto;
 import com.example.exception.ResourceNotFoundException;
 import com.example.model.Brand;
+import com.example.model.Category;
 import com.example.model.Product;
 import com.example.repository.IBrandRepository;
+import com.example.repository.ICategoryRepository;
 import com.example.repository.IProductRepository;
 import com.example.service.IProductService;
 
@@ -42,6 +44,9 @@ public class ProductControllerV2 {
 	
 	@Autowired 
 	private IBrandRepository brandRepository;
+	
+	@Autowired
+	private ICategoryRepository categoryRepository;
 	
 	@GetMapping("/productname/{productName}")
 	@ApiOperation(value="view product list by passing product name in query string",response=Product.class)
@@ -95,9 +100,24 @@ public class ProductControllerV2 {
 	@PutMapping("/productId/{id}")
 	@ApiOperation(value="Updates Product whose ID is provided in the URL",response=ProductDto.class)
 	public ResponseEntity<?> update(@PathVariable(value = "id") Long id, @Valid @RequestBody ProductDto productDto) {
+<<<<<<< HEAD
 			Product product = productservice.update(productDto, id);
+=======
+			Product product = productRepository.findById(id)
+					.orElseThrow(() -> new ResourceNotFoundException("Product", "product ID", id));
+			product.setCreatedAt(new Date());
+			product.setName(productDto.getName());
+			product.setDescription(productDto.getDescription());
+			product.setColor(productDto.getColor());
+			product.setSize(productDto.getSize());
+			Brand brand = brandRepository.getOne(productDto.getBrandId());
+			product.setBrand(brand);
+			Category category = categoryRepository.getOne(productDto.getCategoryId());
+			product.setCategory(category);
+			productRepository.save(product);
+>>>>>>> category
 			HttpHeaders responseHeader = new HttpHeaders();
-			return new ResponseEntity<>(product, responseHeader, HttpStatus.OK);
+			return new ResponseEntity<>(product, responseHeader, HttpStatus.CREATED);
 		}
 	}
 
