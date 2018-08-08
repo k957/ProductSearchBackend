@@ -24,4 +24,13 @@ public class CategoryAssembler {
 		
 		return categoryList;
 	}
+	
+	public Category createCategoryEntity(CategoryDto categoryDto) {
+		Category category = new Category();
+		category.setName(categoryDto.getName());
+		category.setParentId(categoryDto.getParentId());
+		category.setFeaturedRank(categoryDto.getFeaturedRank());
+		
+		return category;
+	}
 }
