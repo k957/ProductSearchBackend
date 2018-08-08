@@ -10,7 +10,10 @@ import com.example.assembler.ProductAssembler;
 import com.example.dto.ProductDto;
 import com.example.exception.ResourceNotFoundException;
 import com.example.model.Brand;
+import com.example.model.Category;
 import com.example.model.Product;
+import com.example.repository.IBrandRepository;
+import com.example.repository.ICategoryRepository;
 import com.example.repository.IProductRepository;
 
 @Service
@@ -21,7 +24,11 @@ public class ProductServiceImpl implements IProductService {
 	@Autowired
 	private IProductRepository productRepository;
 	
+	@Autowired 
+	private IBrandRepository brandRepository;
 	
+	@Autowired
+	private ICategoryRepository categoryRepository;
 
 	@Override
 	public List<Product> viewAll() {
@@ -47,8 +54,12 @@ public class ProductServiceImpl implements IProductService {
 		product.setSize(productDto.getSize());
 		Brand brand = brandRepository.getOne(productDto.getBrandId());
 		product.setBrand(brand);
+		Category category = categoryRepository.getOne(productDto.getCategoryId());
+		product.setCategory(category);
+		product.setImageUrl(productDto.getImageUrl());
+		product.setRank(productDto.getRank());
 		productRepository.save(product);
-		return null;
+		return product;
 	}
 
 	@Override
