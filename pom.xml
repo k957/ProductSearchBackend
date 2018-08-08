@@ -6,7 +6,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>Local-Search-Directory</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>Local-Search-Directory</name>
 	<description>Demo project for Spring Boot</description>
