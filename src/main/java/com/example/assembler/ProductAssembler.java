@@ -55,6 +55,8 @@ public class ProductAssembler {
 		product.setMerchant(merchant);
 		Brand brand = brandRepository.getOne(productDto.getBrandId());
 		product.setBrand(brand);
+		Category category = categoryRepository.getOne(productDto.getCategoryId());
+		product.setCategory(category);
 		product.setName(productDto.getName());
 		product.setColor(productDto.getColor());
 		product.setSize(productDto.getSize());
