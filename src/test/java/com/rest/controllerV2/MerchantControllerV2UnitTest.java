@@ -1,4 +1,4 @@
-package com.rest.controllerV2;
+/*package com.rest.controllerV2;
 
 import static org.junit.Assert.*;
 
@@ -98,3 +98,4 @@ public class MerchantControllerV2UnitTest {
 		}
 	}
 }
+*/
