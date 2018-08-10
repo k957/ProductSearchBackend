@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.dto.StoreDto;
 import com.example.model.Store;
 import com.example.service.IStoreService;
 
@@ -34,12 +33,21 @@ public class StoreControllerV2 {
 	}
 	
 	@GetMapping("/storeId/{id}")
-	@ApiOperation(value="returns one Store whose ID provided in the URL",response=StoreDto.class)
+	@ApiOperation(value="returns one Store whose ID provided in the URL",response=Store.class)
 	public ResponseEntity<?> viewOne(@PathVariable(value = "id") Long id) {
 		
 			Store store = storeService.viewOne(id);
 			HttpHeaders responseHeaders = new HttpHeaders();
 			return new ResponseEntity<>(store, responseHeaders, HttpStatus.OK);
 
+	}
+	
+	@GetMapping("/storeName/{name}")
+	@ApiOperation(value="returns list of store whose name provided in URL",response=Store.class)
+	public ResponseEntity<Object> viewByName(@PathVariable("name") String name){
+		
+		List<Store> store = storeService.findByName(name);
+		HttpHeaders headers = new HttpHeaders();
+		return new ResponseEntity<>(store,headers,HttpStatus.OK);
 	}
 }

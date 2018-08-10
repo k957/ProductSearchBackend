@@ -50,4 +50,10 @@ public class StoreServiceImpl implements IStoreService {
 
 	}
 
+	@Override
+	public List<Store> findByName(String name) {
+		List<Store> store = storeRepository.findByName(name);
+		return store;
+	}
+
 }

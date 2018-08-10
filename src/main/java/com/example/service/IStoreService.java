@@ -15,4 +15,6 @@ public interface IStoreService {
 	Store update(Store storeDto);
 
 	void delete(List<Store> storeList);
+	
+	List<Store> findByName(String name);
 }
