@@ -12,7 +12,7 @@ public interface IStoreService {
 
 	Store viewOne(Long id);
 
-	Store update(Store storeDto);
+	Store update(StoreDto storeDto,Long id);
 
 	void delete(List<Store> storeList);
 	

@@ -2,15 +2,20 @@ package com.example.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.dto.StoreDto;
 import com.example.model.Store;
 import com.example.service.IStoreService;
 
@@ -50,4 +55,13 @@ public class StoreControllerV2 {
 		HttpHeaders headers = new HttpHeaders();
 		return new ResponseEntity<>(store,headers,HttpStatus.OK);
 	}
+	
+	@PutMapping("/storeId/{id}")
+	@ApiOperation(value="updates store whose id provided in URL",response=Store.class)
+	public ResponseEntity<Store> update(@Valid @RequestBody StoreDto storeDto, @PathVariable(value = "id") Long id) {
+			Store updatedStore = storeService.update(storeDto, id);
+			HttpHeaders responseHeader = new HttpHeaders();
+			return new ResponseEntity<>(updatedStore, responseHeader, HttpStatus.CREATED);	
+}
+	
 }

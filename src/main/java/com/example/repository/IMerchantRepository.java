@@ -9,4 +9,5 @@ import com.example.model.Merchant;
 public interface IMerchantRepository extends JpaRepository<Merchant, Long> {
 	
 	Merchant findByDisplayName(String displayName);
+	
 }

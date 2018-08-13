@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import com.example.assembler.StoreAssembler;
 import com.example.dto.StoreDto;
 import com.example.exception.ResourceNotFoundException;
+import com.example.model.Merchant;
 import com.example.model.Store;
+import com.example.repository.IMerchantRepository;
 import com.example.repository.IStoreRepository;
 
 @Service
@@ -19,6 +21,9 @@ public class StoreServiceImpl implements IStoreService {
 
 	@Autowired
 	private IStoreRepository storeRepository;
+	
+	@Autowired 
+	private IMerchantRepository merchantRepository;
 
 	@Override
 	public Store create(StoreDto storeDto) {
@@ -41,10 +46,24 @@ public class StoreServiceImpl implements IStoreService {
 	}
 
 	@Override
-	public Store update(Store storeDto) {
-		return null;
+	public Store update(StoreDto storeDto,Long id) {
+		Store store = storeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("store", "id", id));
+		store.setCreatedAt(new Date());
+		store.setAddress(storeDto.getAddress());
+		store.setDescription(storeDto.getAddress());
+		store.setLatitude(storeDto.getLatitude());
+		store.setLongitude(storeDto.getLongitude());
+		Merchant merchant = merchantRepository.getOne(storeDto.getMerchantId());
+		store.setMerchant(merchant);
+		store.setName(storeDto.getName());
+		store.setOpeningHours(storeDto.getOpeningHours());
+		store.setPaymentMethods(storeDto.getPaymentMethodId());
+		store.setPhone(storeDto.getPhone());
+		store.setPostalCode(storeDto.getPostalCode());
+		storeRepository.save(store);
+		return store;
+		
 	}
-
 	@Override
 	public void delete(List<Store> storeList) {
 

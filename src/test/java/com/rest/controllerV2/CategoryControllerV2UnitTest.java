@@ -17,19 +17,19 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.example.LocalSearchDirectoryApplication;
-import com.example.dto.MerchantDto;
-import com.example.service.IMerchantService;
-
+import com.example.dto.CategoryDto;
+import com.example.service.ICategoryService;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = LocalSearchDirectoryApplication.class)
-public class MerchantControllerV2UnitTest {
+public class CategoryControllerV2UnitTest {
+	
 	@Autowired
 	private WebApplicationContext wac;
 	private MockMvc mvc;
-
-	@Autowired
-	private IMerchantService merchantService;
 	
+	@Autowired
+	private ICategoryService categoryService;
+
 	@Before
 	public void setUp() {
 		mvc = MockMvcBuilders.webAppContextSetup(wac).build();
@@ -37,64 +37,82 @@ public class MerchantControllerV2UnitTest {
 	
 	@Test
 	public void testViewAll() {
-		MerchantDto merchant = new MerchantDto();
-		merchant.setName("kanav");
-		merchant.setDisplayName("kkk");
-		merchant.setMailId("kanav@gmail.com");
-		merchant.setStatus('A');
-		merchant.setMobileNo("9999");
-		merchantService.create(merchant);
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/merchant")
+		CategoryDto categoryDto = new CategoryDto();
+		categoryDto.setName("dairy");
+		categoryService.create(categoryDto);
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/category")
 				.contentType(MediaType.APPLICATION_JSON);
 		try {
 			MvcResult result = mvc.perform(requestBuilder).andReturn();
 			assertEquals(200, result.getResponse().getStatus());
 			assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
-
-		} catch (Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
 
 	@Test
 	public void testViewOne() {
-		MerchantDto merchant = new MerchantDto();
-		merchant.setName("kanav");
-		merchant.setDisplayName("kkk");
-		merchant.setMailId("kanav@gmail.com");
-		merchant.setStatus('A');
-		merchant.setMobileNo("9999");
-		merchantService.create(merchant);
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/merchant/merchantId/2")
+		CategoryDto categoryDto = new CategoryDto();
+		categoryDto.setName("dairy");
+		categoryService.create(categoryDto);
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/category/categoryId/1")
 				.contentType(MediaType.APPLICATION_JSON);
 		try {
 			MvcResult result = mvc.perform(requestBuilder).andReturn();
 			assertEquals(200, result.getResponse().getStatus());
 			assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
-		} catch (Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Test
-	public void testViewByDisplayName() {
-		MerchantDto merchant = new MerchantDto();
-		merchant.setName("kanav");
-		merchant.setDisplayName("kkk");
-		merchant.setMailId("kanav@gmail.com");
-		merchant.setStatus('A');
-		merchant.setMobileNo("9999");
-		merchantService.create(merchant);
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/merchant/displayName/kkk")
+	public void testCreate() {
+		String categoryJson = "{\"name\":\"mens\"}";
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/v2/category").accept(MediaType.APPLICATION_JSON)
+				.content(categoryJson).contentType(MediaType.APPLICATION_JSON);
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(201, result.getResponse().getStatus());
+			assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testDelete() {
+		CategoryDto categoryDto = new CategoryDto();
+		categoryDto.setName("dairy");
+		categoryService.create(categoryDto);
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/v2/category/deleteCategory/1");
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(200, result.getResponse().getStatus());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testViewByName() {
+		CategoryDto categoryDto = new CategoryDto();
+		categoryDto.setName("dairy");
+		categoryService.create(categoryDto);
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/category/categoryName/dairy")
 				.contentType(MediaType.APPLICATION_JSON);
 		try {
 			MvcResult result = mvc.perform(requestBuilder).andReturn();
 			assertEquals(200, result.getResponse().getStatus());
 			assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
-		} catch (Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
 }
 */
