@@ -1,4 +1,4 @@
-/*package com.rest.controllerV2;
+package com.rest.controllerV2;
 
 import static org.junit.Assert.*;
 
@@ -37,11 +37,11 @@ public class BrandControllerV2UnitTest {
 	}
 	
 	@Test
-	public void testViewAll() {
-		BrandDto brandDto = new BrandDto();
-		brandDto.setName("Marks & Spencers");
-		brandDto.setDescription("Marks & Spencer Group plc is a major British multinational retailer headquartered in the City of Westminster, London.");
-		brandService.create(brandDto);
+	public void testViewAllBrandsGive201Status() {
+//		BrandDto brandDto = new BrandDto();
+//		brandDto.setName("Marks & Spencers");
+//		brandDto.setDescription("Marks & Spencer Group plc is a major British multinational retailer headquartered in the City of Westminster, London.");
+//		brandService.create(brandDto);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/brand")
 				.contentType(MediaType.APPLICATION_JSON);
 		try {
@@ -53,21 +53,20 @@ public class BrandControllerV2UnitTest {
 		}
 	}
 
-	@Test
-	public void testCreate() {
-		String brandJson = "{\"name\":\"Kookabura\",\n" + 
-				"	\"description\":\"Kookaburra is an Australian sports equipment company, specialising in cricket and field hockey equipment, named after the Australian kingfisher.\"}";
-		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/v2/brand").accept(MediaType.APPLICATION_JSON)
-				.content(brandJson).contentType(MediaType.APPLICATION_JSON);
-		try {
-			MvcResult result = mvc.perform(requestBuilder).andReturn();
-			assertEquals(201, result.getResponse().getStatus());
-			assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	@Test
+//	public void testCreate() {
+//		String brandJson = "{\"name\":\"Kookabura\",\n" + 
+//				"	\"description\":\"Kookaburra is an Australian sports equipment company, specialising in cricket and field hockey equipment, named after the Australian kingfisher.\"}";
+//		
+//		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/v2/brand").accept(MediaType.APPLICATION_JSON)
+//				.content(brandJson).contentType(MediaType.APPLICATION_JSON);
+//		try {
+//			MvcResult result = mvc.perform(requestBuilder).andReturn();
+//			assertEquals(201, result.getResponse().getStatus());
+//			assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 }
-*/
