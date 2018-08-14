@@ -14,9 +14,9 @@ public class CorsConfig {
 	        
 	            @Override
 	            public void addCorsMappings(CorsRegistry registry) {
-	                registry.addMapping("**/v2/**").allowedOrigins("http://184.72.75.108:8080");
-	                registry.addMapping("**/v2**").allowedOrigins("http://172.18.73.160:4200");
-	                registry.addMapping("**/v2/**").allowedOrigins("http://172.18.73.160:8080");
+	                registry.addMapping("**/v2/**").allowedOrigins("http://184.72.75.108:8080","http://172.18.73.160:4200","http://172.18.73.160:8080");
+//	                registry.addMapping("**/v2**").allowedOrigins();
+//	                registry.addMapping("**/v2/**").allowedOrigins();
 	            }
 	        };
 	    }
