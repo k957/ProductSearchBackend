@@ -36,6 +36,9 @@ public class MerchantControllerV2 {
 	public ResponseEntity<?> viewAll() {
 			List<Merchant> merchant = merchantService.viewAll();
 			HttpHeaders responseHeader = new HttpHeaders();
+		//	responseHeader.add("Access-Control-Allow-Origin", "*");
+			responseHeader.add("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS");
+			responseHeader.add("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With");
 			return new ResponseEntity<>(merchant, responseHeader, HttpStatus.OK);
 	}
 
@@ -45,6 +48,9 @@ public class MerchantControllerV2 {
 			Merchant merchant = merchantRepository.findById(id)
 					.orElseThrow(() -> new ResourceNotFoundException("Merchant", "id", id));
 			HttpHeaders responseHeaders = new HttpHeaders();
+		//	responseHeaders.add("Access-Control-Allow-Origin", "*");
+			responseHeaders.add("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS");
+			responseHeaders.add("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With");
 			return new ResponseEntity<>(merchant, responseHeaders, HttpStatus.OK);
 	}
 	
@@ -53,6 +59,9 @@ public class MerchantControllerV2 {
 	public ResponseEntity<?> viewByDisplayName(@PathVariable("displayName") String displayName){
 		Merchant merchant = merchantService.findByDisplayName(displayName);
 		HttpHeaders responseHeaders = new HttpHeaders();
+		//responseHeaders.add("Access-Control-Allow-Origin", "*");
+		responseHeaders.add("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS");
+		responseHeaders.add("Access-Control-Allow-Headers", "Content-Type");
 		if(merchant!=null) {
 		return new ResponseEntity<>(merchant, responseHeaders, HttpStatus.OK);
 	}else {
