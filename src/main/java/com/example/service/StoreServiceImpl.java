@@ -50,7 +50,7 @@ public class StoreServiceImpl implements IStoreService {
 		Store store = storeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("store", "id", id));
 		store.setCreatedAt(new Date());
 		store.setAddress(storeDto.getAddress());
-		store.setDescription(storeDto.getAddress());
+		store.setDescription(storeDto.getDescription());
 		store.setLatitude(storeDto.getLatitude());
 		store.setLongitude(storeDto.getLongitude());
 		Merchant merchant = merchantRepository.getOne(storeDto.getMerchantId());

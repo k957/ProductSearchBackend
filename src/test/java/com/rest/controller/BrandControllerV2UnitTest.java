@@ -1,4 +1,4 @@
-package com.rest.controller;
+/*package com.rest.controller;
 
 import static org.junit.Assert.*;
 
@@ -71,3 +71,4 @@ public class BrandControllerV2UnitTest {
 	}
 
 }
+*/
