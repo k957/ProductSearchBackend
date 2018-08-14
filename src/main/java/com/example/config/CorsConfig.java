@@ -1,4 +1,4 @@
-package com.example.config;
+/*package com.example.config;
 
 
 import org.springframework.context.annotation.Bean;
@@ -15,12 +15,12 @@ public class CorsConfig{
 	        return new WebMvcConfigurerAdapter() {
 	        
 	            @Override
-	            public void addCorsMappings(CorsRegistry registry) {
-	                registry.addMapping("**/v2/**")
-	                .allowedOrigins("*")
+	            public void addCorsMappings(CorsRegistry registry) {*/
+	                //registry.addMapping("**/v2/**")
+	                /*.allowedOrigins("*")
 	                .allowedMethods("GET, POST, DELETE, PUT, OPTIONS, HEAD")
 	                .allowedHeaders("Content-Type, Accept, X-Requested-With");
 	            }
 	        };
 	    }
-}
+}*/
