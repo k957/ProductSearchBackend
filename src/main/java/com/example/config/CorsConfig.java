@@ -14,11 +14,9 @@ public class CorsConfig {
 	        
 	            @Override
 	            public void addCorsMappings(CorsRegistry registry) {
-	                registry.addMapping("/v2/merchant/**").allowedOrigins("http://184.72.75.108:8080");
-	                registry.addMapping("/v2/product/**").allowedOrigins("http://184.72.75.108:8080");
-	                registry.addMapping("/v2/store/**").allowedOrigins("http://184.72.75.108:8080");
-	                registry.addMapping("/v2/brand/**").allowedOrigins("http://184.72.75.108:8080");
-	                registry.addMapping("/v2/category/**").allowedOrigins("http://184.72.75.108:8080");
+	                registry.addMapping("**/v2/**").allowedOrigins("http://184.72.75.108:8080");
+	                registry.addMapping("**/v2**").allowedOrigins("http://172.18.73.160:4200");
+	                registry.addMapping("**/v2/**").allowedOrigins("http://172.18.73.160:8080");
 	            }
 	        };
 	    }
