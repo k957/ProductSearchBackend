@@ -46,6 +46,7 @@ public class BrandControllerV2UnitTest {
 				.contentType(MediaType.APPLICATION_JSON);
 		try {
 			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			System.out.println(result.getResponse().getContentAsString());
 			assertEquals(200, result.getResponse().getStatus());
 			assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
 		} catch (Exception e) {
