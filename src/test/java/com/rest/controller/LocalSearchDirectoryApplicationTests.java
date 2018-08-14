@@ -18,4 +18,9 @@ public class LocalSearchDirectoryApplicationTests {
 	public void canaryTest() {
 		assert(true);
 	}
+	
+	@Test
+	public void craetestoreTest() {
+		assert(true);
+	}
 }
