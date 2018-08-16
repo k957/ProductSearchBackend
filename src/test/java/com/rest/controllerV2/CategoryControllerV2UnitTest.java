@@ -18,6 +18,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.example.LocalSearchDirectoryApplication;
 import com.example.dto.CategoryDto;
+import com.example.model.Category;
 import com.example.service.ICategoryService;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = LocalSearchDirectoryApplication.class)
@@ -56,9 +57,9 @@ public class CategoryControllerV2UnitTest {
 	public void testViewOne() {
 		CategoryDto categoryDto = new CategoryDto();
 		categoryDto.setName("home");
-		categoryService.create(categoryDto);
+		Category category = categoryService.create(categoryDto);
 		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/category/categoryId/1")
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/category/categoryId/"+category.getId())
 				.contentType(MediaType.APPLICATION_JSON);
 		try {
 			MvcResult result = mvc.perform(requestBuilder).andReturn();
@@ -87,8 +88,8 @@ public class CategoryControllerV2UnitTest {
 	public void testDelete() {
 		CategoryDto categoryDto = new CategoryDto();
 		categoryDto.setName("food");
-		categoryService.create(categoryDto);
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/v2/category/deleteCategory/1");
+		Category category = categoryService.create(categoryDto);
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/v2/category/deleteCategory/"+category.getId());
 		try {
 			MvcResult result = mvc.perform(requestBuilder).andReturn();
 			assertEquals(200, result.getResponse().getStatus());

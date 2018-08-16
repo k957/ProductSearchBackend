@@ -58,7 +58,7 @@ public class MerchantControllerV2UnitTest {
 	
 
 	@Test
-	public void testViewOneGives404whenWrongIdPassed() {
+	public void testViewOneGives200whenCorrectIdPassed() {
 		MerchantDto merchant = new MerchantDto();
 		merchant.setName("nikita");
 		merchant.setDisplayName("nnn");
@@ -70,7 +70,7 @@ public class MerchantControllerV2UnitTest {
 				.contentType(MediaType.APPLICATION_JSON);
 		try {
 			MvcResult result = mvc.perform(requestBuilder).andReturn();
-			assertEquals(404, result.getResponse().getStatus());
+			assertEquals(200, result.getResponse().getStatus());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
