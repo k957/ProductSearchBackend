@@ -33,7 +33,7 @@ public class BrandControllerV2 {
 	
 	@GetMapping
 	@ApiOperation(value="returns list of all brands",response=Brand.class)
-	public ResponseEntity<?> viewAll(){
+	public ResponseEntity<List<Brand>> viewAll(){
 		List<Brand> brandList = brandService.viewAll();
 		HttpHeaders headers = new HttpHeaders();
 		return new ResponseEntity<>(brandList,headers,HttpStatus.OK);
@@ -41,7 +41,7 @@ public class BrandControllerV2 {
 	 
 	@PostMapping
 	@ApiOperation(value="method to create brands",response=Brand.class)
-	public ResponseEntity<?> create(@Valid @RequestBody BrandDto brandDto){
+	public ResponseEntity<Brand> create(@Valid @RequestBody BrandDto brandDto){
 		Brand brand = brandService.create(brandDto);
 		HttpHeaders responseHeader = new HttpHeaders();
 		return new ResponseEntity<>(brand,responseHeader,HttpStatus.CREATED);
