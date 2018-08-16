@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -20,9 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.dto.FeedDto;
-import com.example.exception.ResourceNotFoundException;
 import com.example.model.Feed;
-import com.example.repository.IFeedRepository;
 import com.example.service.IFeedService;
 
 import io.swagger.annotations.Api;
@@ -32,8 +29,6 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/v2/feed")
 @Api(value="Feed Controller REST Endpoint",description="Feed Controller API")
 public class FeedControllerV2 {
-	@Autowired
-	private IFeedRepository feedRepository;
 
 	@Autowired
 	private IFeedService feedService;
@@ -61,15 +56,7 @@ public class FeedControllerV2 {
 	@PutMapping("/{id}")
 	@ApiOperation(value="Updates Feed whose ID is provided in the URL",response=FeedDto.class)
 	public ResponseEntity<?> update(@PathVariable(value = "id") Long id, @Valid @RequestBody FeedDto feedDto) {
-			Feed feed = feedRepository.findById(id)
-					.orElseThrow(() -> new ResourceNotFoundException("Feed", "Feed ID", id));
-			feed.setCreatedAt(new Date());
-			feed.setEndDate(feedDto.getEndDate());
-			feed.setPrice(feedDto.getPrice());
-			feed.setQuantity(feedDto.getQuantity());
-			feed.setSalePrice(feedDto.getSalePrice());
-			feed.setStartDate(feedDto.getStartDate());
-			feedRepository.save(feed);
+			Feed feed = feedService.update(feedDto, id);
 			HttpHeaders responseHeader = new HttpHeaders();
 			return new ResponseEntity<>(feed, responseHeader, HttpStatus.CREATED);
 	}
@@ -77,9 +64,7 @@ public class FeedControllerV2 {
 	@DeleteMapping("/{id}")
 	@ApiOperation(value="Deletes Feed whose ID is provided in the URL",response=FeedDto.class)
 	public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) {
-			Feed feed = feedRepository.findById(id)
-					.orElseThrow(() -> new ResourceNotFoundException("Feed", "Feed ID", id));
-			feedRepository.delete(feed);
+			feedService.delete(id);
 			return ResponseEntity.ok().build();
 	}
 }
