@@ -65,8 +65,9 @@ public class StoreServiceImpl implements IStoreService {
 		
 	}
 	@Override
-	public void delete(List<Store> storeList) {
-
+	public void delete(Long id) {
+		Store store = storeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Store", "Store_id", id));
+		storeRepository.delete(store);
 	}
 
 	@Override
