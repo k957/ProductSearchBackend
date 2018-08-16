@@ -1,12 +1,14 @@
-/*package com.rest.controllerV2;
+package com.rest.controllerV2;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -28,9 +30,9 @@ public class BrandControllerV2UnitTest {
 	private WebApplicationContext wac;
 	private MockMvc mvc;
 	
-	@Autowired
+	@MockBean
 	private IBrandService brandService;
-
+	
 	@Before
 	public void setUp() {
 		mvc = MockMvcBuilders.webAppContextSetup(wac).build();
@@ -41,7 +43,7 @@ public class BrandControllerV2UnitTest {
 		BrandDto brandDto = new BrandDto();
 		brandDto.setName("Marks & Spencers");
 		brandDto.setDescription("Marks & Spencer Group plc is a major British multinational retailer headquartered in the City of Westminster, London.");
-	brandService.create(brandDto);
+		Mockito.when(brandService.create(brandDto));
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/brand")
 				.contentType(MediaType.APPLICATION_JSON);
 		try {
@@ -64,11 +66,9 @@ public class BrandControllerV2UnitTest {
 		try {
 			MvcResult result = mvc.perform(requestBuilder).andReturn();
 			assertEquals(201, result.getResponse().getStatus());
-			assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
 	}catch (Exception e) {
 		e.printStackTrace();
 		}
 	}
 
 }
-*/
