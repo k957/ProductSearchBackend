@@ -1,4 +1,4 @@
-/*package com.rest.controllerV2;
+package com.rest.controllerV2;
 
 import static org.junit.Assert.*;
 
@@ -55,7 +55,7 @@ public class CategoryControllerV2UnitTest {
 	@Test
 	public void testViewOne() {
 		CategoryDto categoryDto = new CategoryDto();
-		categoryDto.setName("dairy");
+		categoryDto.setName("home");
 		categoryService.create(categoryDto);
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/category/categoryId/1")
@@ -86,7 +86,7 @@ public class CategoryControllerV2UnitTest {
 	@Test
 	public void testDelete() {
 		CategoryDto categoryDto = new CategoryDto();
-		categoryDto.setName("dairy");
+		categoryDto.setName("food");
 		categoryService.create(categoryDto);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/v2/category/deleteCategory/1");
 		try {
@@ -100,7 +100,7 @@ public class CategoryControllerV2UnitTest {
 	@Test
 	public void testViewByName() {
 		CategoryDto categoryDto = new CategoryDto();
-		categoryDto.setName("dairy");
+		categoryDto.setName("sports");
 		categoryService.create(categoryDto);
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/category/categoryName/dairy")
@@ -115,4 +115,3 @@ public class CategoryControllerV2UnitTest {
 	}
 
 }
-*/

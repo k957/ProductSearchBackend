@@ -14,4 +14,8 @@ public interface IMerchantService {
 
 	Merchant findByDisplayName(String displayName);
 	
+	Merchant createV2(MerchantDto merchant);
+	
+	void delete(Long id); 
+	
 }

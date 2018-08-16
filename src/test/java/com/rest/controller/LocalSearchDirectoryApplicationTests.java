@@ -1,4 +1,4 @@
-/*package com.rest.controller;
+package com.rest.controller;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,10 +18,4 @@ public class LocalSearchDirectoryApplicationTests {
 	public void canaryTest() {
 		assert(true);
 	}
-	
-	@Test
-	public void craetestoreTest() {
-		assert(true);
-	}
 }
-*/

@@ -5,8 +5,10 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -21,6 +23,10 @@ import com.example.dto.BrandDto;
 import com.example.dto.CategoryDto;
 import com.example.dto.MerchantDto;
 import com.example.dto.ProductDto;
+import com.example.model.Brand;
+import com.example.model.Category;
+import com.example.model.Merchant;
+import com.example.model.Product;
 import com.example.service.IBrandService;
 import com.example.service.ICategoryService;
 import com.example.service.IMerchantService;
@@ -34,16 +40,16 @@ public class ProductControllerV2UnitTest {
 	private WebApplicationContext wac;
 	private MockMvc mvc;
 	
-	@Autowired
+	@MockBean
 	private IBrandService brandService;
 	
-	@Autowired
+	@MockBean
 	private ICategoryService categoryService;
 	
-	@Autowired
+	@MockBean
 	private IMerchantService merchantService;
 	
-	@Autowired
+	@MockBean
 	private IProductService productService;
 
 	@Before
@@ -51,41 +57,87 @@ public class ProductControllerV2UnitTest {
 		mvc = MockMvcBuilders.webAppContextSetup(wac).build();
 	}
 	
-	public void createBrand() {
-		BrandDto brandDto = new BrandDto();
+	BrandDto brandDto = new BrandDto();
+	CategoryDto categoryDto = new CategoryDto();
+	MerchantDto merchantDto = new MerchantDto();
+	ProductDto productDto = new ProductDto();
+	
+	private Long brandId;
+	private Long categoryId;
+	private Long merchantId;
+	private Long productId;
+	
+	public Long createBrand() {
+		Brand brand = new Brand();
 		brandDto.setName("Marks & Spencers");
 		brandDto.setDescription("Marks & Spencer Group plc is a major British multinational retailer headquartered in the City of Westminster, London.");
-		brandService.create(brandDto);
+		brand.setId(1l);
+		brand.setName("Marks & Spencers");
+		brand.setDescription("Marks & Spencer Group plc is a major British multinational retailer headquartered in the City of Westminster, London.");
+		Mockito.when(brandService.create(brandDto)).thenReturn(brand);
+		return brand.getId();
 	}
 	
-	public void createCategory() {
-		CategoryDto categoryDto = new CategoryDto();
+	public Long createCategory() {
+		Category category = new Category();
 		categoryDto.setName("dairy");
-		categoryService.create(categoryDto);
+		
+		category.setId(2l);
+		category.setName("dairy");
+		Mockito.when(categoryService.create(categoryDto)).thenReturn(category);
+		return category.getId();
 	}
 	
-	public void createMerchant() {
-		MerchantDto merchant = new MerchantDto();
+	public Long createMerchant() {
+		Merchant merchant = new Merchant();
+		
+		merchantDto.setName("kanav");
+		merchantDto.setDisplayName("kkk");
+		merchantDto.setMailId("kanav@gmail.com");
+		merchantDto.setStatus('A');
+		merchantDto.setMobileNo("9999");
+		
+		
 		merchant.setName("kanav");
 		merchant.setDisplayName("kkk");
 		merchant.setMailId("kanav@gmail.com");
 		merchant.setStatus('A');
 		merchant.setMobileNo("9999");
-		merchantService.create(merchant);
+		Mockito.when(merchantService.createV2(merchantDto)).thenReturn(merchant);
+		return merchant.getId();
+		
 	}
 	
-	public void createProduct() {
-		ProductDto productDto = new ProductDto();
-		productDto.setBrandId(1l);
-		productDto.setCategoryId(2l);
+	public Long createProduct() {
+		brandId=createBrand();
+		productDto.setBrandId(brandId);
+		categoryId=createCategory();
+		productDto.setCategoryId(categoryId);
 		productDto.setColor("red");
 		productDto.setDescription("rookie");
 		productDto.setImageUrl("dh");
-		productDto.setMerchantId(4l);
+		merchantId=createMerchant();
+		productDto.setMerchantId(merchantId);
 		productDto.setName("gym gloves");
 		productDto.setRank(1);
 		productDto.setSize("small");
-		productService.create(productDto);
+		
+		Product product = new Product();
+		product.setId(4l);
+		brandId=createBrand();
+		productDto.setBrandId(brandId);
+		categoryId=createCategory();
+		productDto.setCategoryId(categoryId);
+		productDto.setColor("red");
+		productDto.setDescription("rookie");
+		productDto.setImageUrl("dh");
+		merchantId=createMerchant();
+		productDto.setMerchantId(merchantId);
+		productDto.setName("gym gloves");
+		productDto.setRank(1);
+		productDto.setSize("small");
+		Mockito.when(productService.create(productDto)).thenReturn(product);
+		return product.getId();
 	}
 	
 	public void initiatorMethod() {
@@ -103,7 +155,7 @@ public class ProductControllerV2UnitTest {
 	
 	@Test
 	public void testViewByName() {
-		initiatorMethod();
+		productId=createCategory();
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/product/productname/gym gloves")
 				.contentType(MediaType.APPLICATION_JSON);
 		try {
@@ -117,7 +169,7 @@ public class ProductControllerV2UnitTest {
 
 	@Test
 	public void testViewAll() {
-		initiatorMethod();
+		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/product")
 				.contentType(MediaType.APPLICATION_JSON);
 		try {
@@ -131,8 +183,8 @@ public class ProductControllerV2UnitTest {
 
 	@Test
 	public void testViewOne() {
-		initiatorMethod();
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/product/productId/5")
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/product/productId/"+productId)
 				.contentType(MediaType.APPLICATION_JSON);
 		try {
 			MvcResult result = mvc.perform(requestBuilder).andReturn();
@@ -145,8 +197,8 @@ public class ProductControllerV2UnitTest {
 
 	@Test
 	public void testViewByMerchantId() {
-		initiatorMethod();
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/product/merchantId/4")
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/product/merchantId/"+merchantId)
 				.contentType(MediaType.APPLICATION_JSON);
 		try {
 			MvcResult result = mvc.perform(requestBuilder).andReturn();
@@ -159,7 +211,6 @@ public class ProductControllerV2UnitTest {
 
 	@Test
 	public void testCreate() {
-		initiatorMethodForCreate();
 		String productJson = "{\n" + 
 				"	\"merchantId\":4,\n" + 
 				"	\"name\":\"Cricket Bat\",\n" + 
@@ -183,7 +234,6 @@ public class ProductControllerV2UnitTest {
 
 	@Test
 	public void testUpdate() {
-		initiatorMethod();
 		String productJson = "{\n" + 
 				"	\"merchantId\":4,\n" + 
 				"	\"name\":\"Cricket Bat\",\n" + 

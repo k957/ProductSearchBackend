@@ -58,7 +58,7 @@ public class MerchantControllerV2UnitTest {
 	
 
 	@Test
-	public void testViewOne() {
+	public void testViewOneGives404whenWrongIdPassed() {
 		MerchantDto merchant = new MerchantDto();
 		merchant.setName("nikita");
 		merchant.setDisplayName("nnn");
@@ -66,12 +66,11 @@ public class MerchantControllerV2UnitTest {
 		merchant.setStatus('A');
 		merchant.setMobileNo("9999");
 		merchantService.create(merchant);
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/merchant/merchantId/2")
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/merchant/merchantId/4")
 				.contentType(MediaType.APPLICATION_JSON);
 		try {
 			MvcResult result = mvc.perform(requestBuilder).andReturn();
-			assertEquals(200, result.getResponse().getStatus());
-			assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
+			assertEquals(404, result.getResponse().getStatus());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

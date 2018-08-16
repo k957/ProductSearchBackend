@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.example.assembler.MerchantAssembler;
 import com.example.controller.PasswordGenerator;
 import com.example.dto.MerchantDto;
+import com.example.exception.ResourceNotFoundException;
 import com.example.model.Merchant;
 import com.example.model.User;
 import com.example.repository.IMerchantRepository;
@@ -41,6 +42,7 @@ public class MerchantServiceImpl implements IMerchantService {
 		merchantRepository.save(merchant);
 		return password;
 	}
+	
 
 	@Override
 	public List<Merchant> viewAll() {
@@ -57,6 +59,22 @@ public class MerchantServiceImpl implements IMerchantService {
 	public Merchant findByDisplayName(String displayName) {
 		Merchant merchant = merchantRepository.findByDisplayName(displayName);
 		return merchant;
+	}
+
+
+	@Override
+	public Merchant createV2(MerchantDto merchantDto) {
+		Merchant merchant = merchantAssembler.createMerchantEntity(merchantDto);
+		merchant.setCreatedAt(new java.util.Date());
+		merchantRepository.save(merchant);
+		return merchant;
+	}
+
+
+	@Override
+	public void delete(Long id) {
+		Merchant merchant = merchantRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Merchant", "merchant_id", id));
+		merchantRepository.delete(merchant);
 	}
 
 }
