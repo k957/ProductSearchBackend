@@ -1,4 +1,4 @@
-package com.example.controller;
+/*package com.example.controller;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,3 +29,4 @@ public class TokenController {
 
 	}
 }
+*/

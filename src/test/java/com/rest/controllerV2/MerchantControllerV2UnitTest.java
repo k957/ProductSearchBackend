@@ -1,4 +1,4 @@
-/*package com.rest.controllerV2;
+package com.rest.controllerV2;
 
 import static org.junit.Assert.*;
 
@@ -60,9 +60,9 @@ public class MerchantControllerV2UnitTest {
 	@Test
 	public void testViewOne() {
 		MerchantDto merchant = new MerchantDto();
-		merchant.setName("kanav");
-		merchant.setDisplayName("kkk");
-		merchant.setMailId("kanav@gmail.com");
+		merchant.setName("nikita");
+		merchant.setDisplayName("nnn");
+		merchant.setMailId("nikita@gmail.com");
 		merchant.setStatus('A');
 		merchant.setMobileNo("9999");
 		merchantService.create(merchant);
@@ -80,13 +80,13 @@ public class MerchantControllerV2UnitTest {
 	@Test
 	public void testViewByDisplayName() {
 		MerchantDto merchant = new MerchantDto();
-		merchant.setName("kanav");
-		merchant.setDisplayName("kkk");
-		merchant.setMailId("kanav@gmail.com");
+		merchant.setName("arpit");
+		merchant.setDisplayName("aaa");
+		merchant.setMailId("arpit@gmail.com");
 		merchant.setStatus('A');
 		merchant.setMobileNo("9999");
 		merchantService.create(merchant);
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/merchant/displayName/kkk")
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/merchant/displayName/aaa")
 				.contentType(MediaType.APPLICATION_JSON);
 		try {
 			MvcResult result = mvc.perform(requestBuilder).andReturn();
@@ -97,4 +97,3 @@ public class MerchantControllerV2UnitTest {
 		}
 	}
 }
-*/

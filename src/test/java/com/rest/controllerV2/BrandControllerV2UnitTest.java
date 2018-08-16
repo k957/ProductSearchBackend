@@ -2,6 +2,9 @@ package com.rest.controllerV2;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +23,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.example.LocalSearchDirectoryApplication;
 import com.example.dto.BrandDto;
+import com.example.model.Brand;
 import com.example.service.IBrandService;
 
 @RunWith(SpringRunner.class)
@@ -41,9 +45,19 @@ public class BrandControllerV2UnitTest {
 	@Test
 	public void testViewAllBrandsGive201Status() {
 		BrandDto brandDto = new BrandDto();
+		Brand brand = new Brand();
+		brand.setId(1L);
+		brand.setName("Marks & Spencers");
+		brand.setDescription("Marks & Spencer Group plc is a major British multinational retailer headquartered in the City of Westminster, London.");
+
+		List<Brand> brandList = new ArrayList<>();
+		brandList.add(brand);
+		
 		brandDto.setName("Marks & Spencers");
 		brandDto.setDescription("Marks & Spencer Group plc is a major British multinational retailer headquartered in the City of Westminster, London.");
-		Mockito.when(brandService.create(brandDto));
+		Mockito.when(brandService.create(brandDto)).thenReturn(brand);
+		Mockito.when(brandService.viewAll()).thenReturn(brandList);
+		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/brand")
 				.contentType(MediaType.APPLICATION_JSON);
 		try {

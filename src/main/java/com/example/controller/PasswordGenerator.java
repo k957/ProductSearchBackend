@@ -6,7 +6,7 @@ import java.util.UUID;
 public class PasswordGenerator {
 	private static SecureRandom random = new SecureRandom();
 
-    /** different dictionaries used */
+    //** different dictionaries used *//*
     private static final String ALPHA_CAPS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String ALPHA = "abcdefghijklmnopqrstuvwxyz";
     private static final String NUMERIC = "0123456789";

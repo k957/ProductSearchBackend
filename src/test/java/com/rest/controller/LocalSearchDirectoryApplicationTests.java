@@ -1,4 +1,4 @@
-package com.rest.controller;
+/*package com.rest.controller;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,3 +24,4 @@ public class LocalSearchDirectoryApplicationTests {
 		assert(true);
 	}
 }
+*/

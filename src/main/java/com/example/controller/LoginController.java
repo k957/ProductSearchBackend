@@ -1,4 +1,4 @@
-package com.example.controller;
+/*package com.example.controller;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -69,3 +69,4 @@ public class LoginController {
 		return map;
 	}
 }
+*/
