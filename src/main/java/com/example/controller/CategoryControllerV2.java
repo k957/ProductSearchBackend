@@ -41,7 +41,6 @@ public class CategoryControllerV2 {
 		return new ResponseEntity<>(category,responseHeaders,HttpStatus.OK);
 	}
 	
-	@CrossOrigin
 	@GetMapping("/categoryId/{id}")
 	@ApiOperation(value="returns one category whose id provided in url",response=Category.class)
 	public ResponseEntity<?> viewOne(@PathVariable("id") Long id){
@@ -66,6 +65,7 @@ public class CategoryControllerV2 {
 		return ResponseEntity.ok().build();
 	}
 	
+	@CrossOrigin
 	@GetMapping("/categoryName/{name}")
 	@ApiOperation(value="returns list of category whose name provided in url",response=Category.class)
 	public ResponseEntity<?> viewByName(@PathVariable("name") String categoryName){
