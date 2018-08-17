@@ -85,4 +85,46 @@ public class BrandControllerV2UnitTest {
 		}
 	}
 
+	@Test
+	public void testCreateBadJsongivesErrorStatus400() {
+		String brandJson = "{\"name\":\"Kookabura\",\n" ;
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/v2/brand").accept(MediaType.APPLICATION_JSON)
+				.content(brandJson).contentType(MediaType.APPLICATION_JSON);
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(400, result.getResponse().getStatus());
+	}catch (Exception e) {
+		e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testCreateWhenNameisNullGivesError() {
+		String brandJson = "{\"name\":null,\n" + 
+				"	\"description\":\"Kookaburra is an Australian sports equipment company, specialising in cricket and field hockey equipment, named after the Australian kingfisher.\"}";
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/v2/brand").accept(MediaType.APPLICATION_JSON)
+				.content(brandJson).contentType(MediaType.APPLICATION_JSON);
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(400, result.getResponse().getStatus());
+	}catch (Exception e) {
+		e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testCreateEmptyJsonGivesError() {
+		String brandJson = "{ }";
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/v2/brand").accept(MediaType.APPLICATION_JSON)
+				.content(brandJson).contentType(MediaType.APPLICATION_JSON);
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(400, result.getResponse().getStatus());
+	}catch (Exception e) {
+		e.printStackTrace();
+		}
+	}
 }
