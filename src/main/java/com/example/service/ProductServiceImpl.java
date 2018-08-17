@@ -11,9 +11,11 @@ import com.example.dto.ProductDto;
 import com.example.exception.ResourceNotFoundException;
 import com.example.model.Brand;
 import com.example.model.Category;
+import com.example.model.Merchant;
 import com.example.model.Product;
 import com.example.repository.IBrandRepository;
 import com.example.repository.ICategoryRepository;
+import com.example.repository.IMerchantRepository;
 import com.example.repository.IProductRepository;
 
 @Service
@@ -29,6 +31,9 @@ public class ProductServiceImpl implements IProductService {
 	
 	@Autowired
 	private ICategoryRepository categoryRepository;
+	
+	@Autowired
+	private IMerchantRepository merchantRepository;
 
 	@Override
 	public List<Product> viewAll() {
@@ -48,6 +53,8 @@ public class ProductServiceImpl implements IProductService {
 		Product product = productRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Product", "product ID", id));
 		product.setCreatedAt(new Date());
+		Merchant merchant = merchantRepository.getOne(productDto.getMerchantId());
+		product.setMerchant(merchant);
 		product.setName(productDto.getName());
 		product.setDescription(productDto.getDescription());
 		product.setColor(productDto.getColor());

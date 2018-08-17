@@ -142,7 +142,7 @@ public class ProductController2V2 {
 	
 	
 	@Test
-	public void testViewByName() {
+	public void testViewByNamegives404whenNameNotFound() {
 		productId=createCategory();
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/product/productname/"+productDto.getName())
 				.contentType(MediaType.APPLICATION_JSON);
