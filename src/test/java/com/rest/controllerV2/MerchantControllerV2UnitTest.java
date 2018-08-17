@@ -75,7 +75,45 @@ public class MerchantControllerV2UnitTest {
 			e.printStackTrace();
 		}
 	}
-
+	
+	@Test
+	public void testViewOneGives404ResourceNotFoundwhenWrongIdPassed() {
+		MerchantDto merchant = new MerchantDto();
+		merchant.setName("nikita");
+		merchant.setDisplayName("nn");
+		merchant.setMailId("ni@gmail.com");
+		merchant.setStatus('A');
+		merchant.setMobileNo("9999");
+		merchantService.create(merchant);
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/merchant/merchantId/454")
+				.contentType(MediaType.APPLICATION_JSON);
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(404, result.getResponse().getStatus());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@Test
+	public void testViewOneGives400OnHittingWrongUrl() {
+		MerchantDto merchant = new MerchantDto();
+		merchant.setName("nikita");
+		merchant.setDisplayName("nnnnn");
+		merchant.setMailId("nin@gmail.com");
+		merchant.setStatus('A');
+		merchant.setMobileNo("9999");
+		merchantService.create(merchant);
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/merchant/merchantId")
+				.contentType(MediaType.APPLICATION_JSON);
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(404, result.getResponse().getStatus());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	@Test
 	public void testViewByDisplayName() {
 		MerchantDto merchant = new MerchantDto();
@@ -91,6 +129,44 @@ public class MerchantControllerV2UnitTest {
 			MvcResult result = mvc.perform(requestBuilder).andReturn();
 			assertEquals(200, result.getResponse().getStatus());
 			assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testViewOneGives400ResourceNotFoundwhenWrongNamePassed() {
+		MerchantDto merchant = new MerchantDto();
+		merchant.setName("nikita");
+		merchant.setDisplayName("kk");
+		merchant.setMailId("kkn@gmail.com");
+		merchant.setStatus('A');
+		merchant.setMobileNo("9999");
+		merchantService.create(merchant);
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/merchant/merchantId/n")
+				.contentType(MediaType.APPLICATION_JSON);
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(400, result.getResponse().getStatus());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testViewOneGives404NoNamePassed() {
+		MerchantDto merchant = new MerchantDto();
+		merchant.setName("nikita");
+		merchant.setDisplayName("nnnnnnnn");
+		merchant.setMailId("ninnnnnnn@gmail.com");
+		merchant.setStatus('A');
+		merchant.setMobileNo("9999");
+		merchantService.create(merchant);
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/merchant/merchantId/")
+				.contentType(MediaType.APPLICATION_JSON);
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(404, result.getResponse().getStatus());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
