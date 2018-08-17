@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ public class CategoryControllerV2 {
 	@Autowired
 	private ICategoryService categoryService;
 	
+	@CrossOrigin
 	@GetMapping
 	@ApiOperation(value="returns list of all categories",response=Category.class)
 	public ResponseEntity<?> viewAll(){
@@ -39,6 +41,7 @@ public class CategoryControllerV2 {
 		return new ResponseEntity<>(category,responseHeaders,HttpStatus.OK);
 	}
 	
+	@CrossOrigin
 	@GetMapping("/categoryId/{id}")
 	@ApiOperation(value="returns one category whose id provided in url",response=Category.class)
 	public ResponseEntity<?> viewOne(@PathVariable("id") Long id){
