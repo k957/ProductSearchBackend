@@ -32,6 +32,7 @@ public class BrandControllerV2UnitTest {
 
 	@Autowired
 	private WebApplicationContext wac;
+	
 	private MockMvc mvc;
 	
 	@MockBean
@@ -72,6 +73,7 @@ public class BrandControllerV2UnitTest {
 
 	@Test
 	public void testCreate() {
+		
 		String brandJson = "{\"name\":\"Kookabura\",\n" + 
 				"	\"description\":\"Kookaburra is an Australian sports equipment company, specialising in cricket and field hockey equipment, named after the Australian kingfisher.\"}";
 		

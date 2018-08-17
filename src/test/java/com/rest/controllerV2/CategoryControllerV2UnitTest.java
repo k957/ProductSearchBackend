@@ -70,6 +70,24 @@ public class CategoryControllerV2UnitTest {
 		}
 	}
 
+	
+	@Test
+	public void testViewOneGivesNotFoundExceptionOnWrongIdInput() {
+		CategoryDto categoryDto = new CategoryDto();
+		categoryDto.setName("home");
+		categoryService.create(categoryDto);
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/category/categoryId/22")
+				.contentType(MediaType.APPLICATION_JSON);
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(404, result.getResponse().getStatus());
+			assertEquals(null, result.getResponse().getContentType());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@Test
 	public void testCreate() {
 		String categoryJson = "{\"name\":\"mens\"}";
@@ -83,7 +101,36 @@ public class CategoryControllerV2UnitTest {
 			e.printStackTrace();
 		}
 	}
-
+	
+	
+	@Test
+	public void testCreateGiveErrorOnEmptyJson() {
+		String categoryJson = "{}";
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/v2/category").accept(MediaType.APPLICATION_JSON)
+				.content(categoryJson).contentType(MediaType.APPLICATION_JSON);
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(400, result.getResponse().getStatus());
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testCreateGiveErrorWhenNullPassed() {
+		String categoryJson = "{\"name\":null\"}";
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/v2/category").accept(MediaType.APPLICATION_JSON)
+				.content(categoryJson).contentType(MediaType.APPLICATION_JSON);
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(400, result.getResponse().getStatus());
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@Test
 	public void testDelete() {
 		CategoryDto categoryDto = new CategoryDto();
@@ -110,6 +157,23 @@ public class CategoryControllerV2UnitTest {
 			MvcResult result = mvc.perform(requestBuilder).andReturn();
 			assertEquals(200, result.getResponse().getStatus());
 			assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testViewByNameGivesErrorWhenNoNamePassedInURL() {
+		CategoryDto categoryDto = new CategoryDto();
+		categoryDto.setName("sports");
+		categoryService.create(categoryDto);
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/category/categoryName/")
+				.contentType(MediaType.APPLICATION_JSON);
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(404, result.getResponse().getStatus());
+			//assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
