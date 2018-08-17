@@ -141,19 +141,32 @@ public class ProductControllerV2UnitTest {
 	}
 	
 	
-	/*@Test
+	@Test
 	public void testViewByName() {
 		productId=createCategory();
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/product/productname/gym gloves")
 				.contentType(MediaType.APPLICATION_JSON);
 		try {
 			MvcResult result = mvc.perform(requestBuilder).andReturn();
-			assertEquals(200, result.getResponse().getStatus());
+			assertEquals(404, result.getResponse().getStatus());
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-	}*/
-
+	}
+	
+	@Test
+	public void testViewByNameGivesErrorWhenWrongNamePassed() {
+		productId=createCategory();
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/product/productname/gym gloves")
+				.contentType(MediaType.APPLICATION_JSON);
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(404, result.getResponse().getStatus());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@Test
 	public void testViewAll() {
 		
@@ -162,6 +175,19 @@ public class ProductControllerV2UnitTest {
 		try {
 			MvcResult result = mvc.perform(requestBuilder).andReturn();
 			assertEquals(200, result.getResponse().getStatus());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testViewAllGivesErrorOnWrongUrl() {
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/product")
+				.contentType(MediaType.APPLICATION_JSON);
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(404, result.getResponse().getStatus());
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -179,11 +205,11 @@ public class ProductControllerV2UnitTest {
 			e.printStackTrace();
 		}
 	}
-
-	/*@Test
-	public void testViewByMerchantId() {
-		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/product/merchantId/"+merchantId)
+	
+	@Test
+	public void testViewOneGivesErrorWhenWrongIdPassed() {
+		productId=createCategory();
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/product/productId/8888")
 				.contentType(MediaType.APPLICATION_JSON);
 		try {
 			MvcResult result = mvc.perform(requestBuilder).andReturn();
@@ -191,8 +217,60 @@ public class ProductControllerV2UnitTest {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-	}*/
+	}
+	
+	@Test
+	public void testViewOneGivesErrorWhenNoIdPassed() {
+		productId=createCategory();
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/product/productId/")
+				.contentType(MediaType.APPLICATION_JSON);
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(404, result.getResponse().getStatus());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
+	@Test
+	public void testViewByMerchantId() {
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/product/merchantId/"+merchantId)
+				.contentType(MediaType.APPLICATION_JSON);
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(400, result.getResponse().getStatus());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testViewByMerchantIdGivesErrorWhenWrongIdPassed() {
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/product/merchantId/"+merchantId)
+				.contentType(MediaType.APPLICATION_JSON);
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(400, result.getResponse().getStatus());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testViewByMerchantIdGivesErrorWhenNoIdPassed() {
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/product/merchantId/")
+				.contentType(MediaType.APPLICATION_JSON);
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(404, result.getResponse().getStatus());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@Test
 	public void testCreate() {
 		String productJson = "{\n" + 
@@ -210,6 +288,40 @@ public class ProductControllerV2UnitTest {
 		try {
 			MvcResult result = mvc.perform(requestBuilder).andReturn();
 			assertEquals(201, result.getResponse().getStatus());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testCreateGivesErrorWhenEmptyJsonPassed() {
+		String productJson = "{}";
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/v2/product").accept(MediaType.APPLICATION_JSON)
+				.content(productJson).contentType(MediaType.APPLICATION_JSON);
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(400, result.getResponse().getStatus());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@Test
+	public void testCreateWhenNullValuesPassed() {
+		String productJson = "{\n" + 
+				"	\"merchantId\":null,\n" + 
+				"	\"name\":null\",\n" + 
+				"	\"description\":\"Kookabura Bat\",\n" + 
+				"	\"color\":\"Green & white\",\n" + 
+				"	\"size\":\"short handle\",\n" + 
+				"	\"brandId\":1,\n" + 
+				"	\"categoryId\":2,\n" + 
+				"	\"imageUrl\":\"https://rukminim1.flixcart.com/image/832/832/j391ifk0/bat/x/c/f/900-1100-harrow-kelvin-kb42-mdn-original-imaeagcfgb7xswe9.jpeg?q=70\"\n" + 
+				"}";
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/v2/product").accept(MediaType.APPLICATION_JSON)
+				.content(productJson).contentType(MediaType.APPLICATION_JSON);
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(400, result.getResponse().getStatus());
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -236,5 +348,40 @@ public class ProductControllerV2UnitTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void testUpdateWhenNullValuesPassed() {
+		String productJson = "{\n" + 
+				"	\"merchantId\":null,\n" + 
+				"	\"name\":null\",\n" + 
+				"	\"description\":\"Kookabura Bat\",\n" + 
+				"	\"color\":\"Green & white\",\n" + 
+				"	\"size\":\"short handle\",\n" + 
+				"	\"brandId\":null,\n" + 
+				"	\"categoryId\":null,\n" + 
+				"	\"imageUrl\":\"https://rukminim1.flixcart.com/image/832/832/j391ifk0/bat/x/c/f/900-1100-harrow-kelvin-kb42-mdn-original-imaeagcfgb7xswe9.jpeg?q=70\"\n" + 
+				"}";
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/v2/product/productId/5").accept(MediaType.APPLICATION_JSON)
+				.content(productJson).contentType(MediaType.APPLICATION_JSON);
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(400, result.getResponse().getStatus());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
+	
+	@Test
+	public void testUpdateWhenEmptyJsonPassed() {
+		String productJson = "{}";
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/v2/product/productId/5").accept(MediaType.APPLICATION_JSON)
+				.content(productJson).contentType(MediaType.APPLICATION_JSON);
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(400, result.getResponse().getStatus());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
