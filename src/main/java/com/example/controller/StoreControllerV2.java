@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +30,7 @@ public class StoreControllerV2 {
 	@Autowired
 	private IStoreService storeService;
 	
+	@CrossOrigin
 	@GetMapping
 	@ApiOperation(value="returns the list of all Stores available",response=Store.class)
 	public ResponseEntity<?> viewAll() {
@@ -38,6 +40,7 @@ public class StoreControllerV2 {
 			return new ResponseEntity<>(store, responseHeaders, HttpStatus.OK);
 	}
 	
+	@CrossOrigin
 	@GetMapping("/storeId/{id}")
 	@ApiOperation(value="returns one Store whose ID provided in the URL",response=Store.class)
 	public ResponseEntity<?> viewOne(@PathVariable(value = "id") Long id) {
@@ -48,6 +51,7 @@ public class StoreControllerV2 {
 
 	}
 	
+	@CrossOrigin
 	@GetMapping("/storeName/{name}")
 	@ApiOperation(value="returns list of store whose name provided in URL",response=Store.class)
 	public ResponseEntity<Object> viewByName(@PathVariable("name") String name){

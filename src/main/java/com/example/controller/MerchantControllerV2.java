@@ -34,6 +34,7 @@ public class MerchantControllerV2 {
 	@Autowired
 	private IMerchantRepository merchantRepository;
 	
+	@CrossOrigin
 	@ApiOperation(value="Returns the list of all merchants registered",response=Merchant.class)
 	@GetMapping
 	public ResponseEntity<?> viewAll() {
@@ -45,6 +46,7 @@ public class MerchantControllerV2 {
 			return new ResponseEntity<>(merchant, responseHeader, HttpStatus.OK);
 	}
 
+	@CrossOrigin
 	@ApiOperation(value="Returns one Merchant details whose ID is provided in the URL",response=Merchant.class)
 	@GetMapping("/merchantId/{id}")
 	public ResponseEntity<?> viewOne(@PathVariable(value = "id") Long id) {
@@ -57,6 +59,7 @@ public class MerchantControllerV2 {
 			return new ResponseEntity<>(merchant, responseHeaders, HttpStatus.OK);
 	}
 	
+	@CrossOrigin
 	@GetMapping("displayName/{displayName}")
 	@ApiOperation(value="Returns one merchant details whose display name provided in url",response=Merchant.class)
 	public ResponseEntity<?> viewByDisplayName(@PathVariable("displayName") String displayName){

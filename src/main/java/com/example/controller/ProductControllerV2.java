@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +35,7 @@ public class ProductControllerV2 {
 	@Autowired
 	private IProductService productservice;
 	
+	@CrossOrigin
 	@GetMapping("/productname/{productName}")
 	@ApiOperation(value="view product list by passing product name in query string",response=Product.class)
 	public ResponseEntity<?> viewByName(@PathVariable("productName") String name){
@@ -47,6 +49,7 @@ public class ProductControllerV2 {
 		
 	}
 	
+	@CrossOrigin
 	@GetMapping
 	@ApiOperation(value="returns the list of all Products available",response=Product.class)
 	public ResponseEntity<?> viewAll() {
@@ -55,6 +58,7 @@ public class ProductControllerV2 {
 			return new ResponseEntity<>(product, responseHeader, HttpStatus.OK);
 		}
 
+	@CrossOrigin
 	@GetMapping("/productId/{id}")
 	@ApiOperation(value="returns one Product whose ID provided in the URL",response=Product.class)
 	public ResponseEntity<?> viewOne(@PathVariable("id") Long id) {
@@ -63,6 +67,7 @@ public class ProductControllerV2 {
 			return new ResponseEntity<>(product, responseHeader, HttpStatus.OK);
 	}
 	
+	@CrossOrigin
 	@GetMapping("/merchantId/{id}")
 	@ApiOperation(value="returns list of products belonging to merchant whose id provided in URL",response=Product.class)
 	public ResponseEntity<?> viewByMerchantId(@PathVariable("id") Long merchantId){
