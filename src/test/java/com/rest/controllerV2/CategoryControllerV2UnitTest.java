@@ -88,6 +88,24 @@ public class CategoryControllerV2UnitTest {
 		}
 	}
 	
+	
+	@Test
+	public void testViewOneGivesErrorWhenNoIdPassed() {
+		CategoryDto categoryDto = new CategoryDto();
+		categoryDto.setName("home");
+		categoryService.create(categoryDto);
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v2/category/categoryId/")
+				.contentType(MediaType.APPLICATION_JSON);
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(404, result.getResponse().getStatus());
+			assertEquals(null, result.getResponse().getContentType());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@Test
 	public void testCreate() {
 		String categoryJson = "{\"name\":\"mens\"}";
@@ -140,6 +158,20 @@ public class CategoryControllerV2UnitTest {
 		try {
 			MvcResult result = mvc.perform(requestBuilder).andReturn();
 			assertEquals(200, result.getResponse().getStatus());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testDeleteGivesErrorWhenNoIdPassed() {
+		CategoryDto categoryDto = new CategoryDto();
+		categoryDto.setName("food");
+		categoryService.create(categoryDto);
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/v2/category/deleteCategory/");
+		try {
+			MvcResult result = mvc.perform(requestBuilder).andReturn();
+			assertEquals(404, result.getResponse().getStatus());
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
