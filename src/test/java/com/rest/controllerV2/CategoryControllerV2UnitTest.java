@@ -205,7 +205,6 @@ public class CategoryControllerV2UnitTest {
 		try {
 			MvcResult result = mvc.perform(requestBuilder).andReturn();
 			assertEquals(404, result.getResponse().getStatus());
-			//assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

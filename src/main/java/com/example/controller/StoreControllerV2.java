@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -76,5 +77,12 @@ public class StoreControllerV2 {
 		return ResponseEntity.ok().build();
 	}
 	
+	@PostMapping
+	@ApiOperation(value="creates store")
+	public ResponseEntity<Store> create(@Valid @RequestBody StoreDto storeDto){
+		Store store = storeService.create(storeDto);
+		HttpHeaders responseHeader = new HttpHeaders();
+		return new ResponseEntity<>(store,responseHeader,HttpStatus.CREATED);
+	}
 	
 }
